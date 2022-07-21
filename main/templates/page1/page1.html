@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<h1>{% block title %}ML prediction interface{% endblock %}</h1>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+table, td, th {
+  border: 1px solid black;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+    th {
+  text-align: left;
+}
+
+    tr {
+  text-align: left;
+}
+
+.loader-tiny {
+  border: 9px solid #e1e1e1;
+  border-radius: 50%;
+  border-top: 9px solid #377ba8;
+  width: 15px;
+  height: 15px;
+  -webkit-animation: spin 1s linear infinite; /* Safari */
+  animation: spin 1s linear infinite;
+
+}
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
+</style>
+
+{% endblock %}
+
+{% block content %}
+
+  <form method="post">
+  <label for="model">Prediction model:</label>
+
+<select style="width:30%" name="model" id="model">
+    {% for m in model_list %}
+  <option value="{{ m }}">{{ m }}</option>
+    {% endfor %}
+</select>
+  <br>
+    <label for="qry">Paste SMILES, 1 per line:</label>
+    <textarea name="qry" id="qry" required></textarea>
+    <input type="submit" value="submit" onclick="onLoading()" id="subbtn">
+  </form>
+
+<div id="loadingtext" style="display:none">Fetching results...
+    <br><br>
+    <div class=loader-tiny></div>
+</div>
+
+    {% if file_loc %}
+        <p><a href="{{ file_loc }}">Download results as .csv</a></p>
+    {%  endif %}
+
+{% if results %}
+<form>
+    <table style="width:100%">
+        <tr>
+        <th style="text-align:center">SMILES   </th>
+        <th style="text-align:center">Prediction</th>
+        </tr>
+
+{% for tup in results %}
+<tr>
+    <td>{{ tup[0] }}</td>
+<td style="text-align:center">{{ tup[1] }}</td>
+</tr>
+{% endfor %}
+
+</table>
+</form>
+
+
+{% endif %}
+
+{% endblock %}
+
