@@ -22,6 +22,7 @@ def begin():
 
         query = request.form['qry']
         smiles_list = query.rstrip("\r\n").split(os.linesep)
+        smiles_list = [x.strip("\r\n") for x in smiles_list]  # get rid of the damn extra newlines!!
         result, file_location = predict_2.predict_from_smiles("solubility", smiles_list)
         file_link = "/result/" + file_location
         return render_template('page1/page1.html', results=result, model_list=get_models(), file_loc=file_link)
