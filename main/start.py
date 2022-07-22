@@ -21,7 +21,7 @@ def begin():
     if request.method == 'POST':
 
         query = request.form['qry']
-        smiles_list = query.rstrip("\n").split("\n")
+        smiles_list = query.rstrip("\r\n").split(os.linesep)
         result, file_location = predict_2.predict_from_smiles("solubility", smiles_list)
         file_link = "/result/" + file_location
         return render_template('page1/page1.html', results=result, model_list=get_models(), file_loc=file_link)
