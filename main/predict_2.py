@@ -25,7 +25,7 @@ def unique_name():
 
 def predict_from_smiles(model_name, smiles_list):
 
-    with open("main\\models\\" + model_name + ".pkl", "rb") as f:
+    with open("main/models/" + model_name + ".pkl", "rb") as f:
         model = pickle.load(f)
 
     df = pd.DataFrame({"SMILES": smiles_list})  # model expects a DataFrame
@@ -45,7 +45,7 @@ def predict_from_smiles(model_name, smiles_list):
     df2["SMILES"] = df["SMILES"]
     df2[model_name] = result_list
     fname = model_name + "_" + unique_name() + ".csv"
-    df2.to_csv("main\\static\\output\\" + fname, index=False)
+    df2.to_csv("main/static/output/" + fname, index=False)
 
     return prediction, fname  # provide the name where file is saved so the user can download it
 
@@ -55,7 +55,7 @@ def predict_single(model_name, smiles):
     """For the URL API. Some code duplication for now."""
 
     #TODO: error messages like model name not recognised, etc
-    with open("main\\models\\" + model_name + ".pkl", "rb") as f:
+    with open("main/models/" + model_name + ".pkl", "rb") as f:
         model = pickle.load(f)
 
     df = pd.DataFrame({"SMILES": [smiles]})  # model expects a DataFrame

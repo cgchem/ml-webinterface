@@ -9,7 +9,7 @@ bp = Blueprint('lookup_page', __name__, url_prefix='')
 
 def get_models():
 
-    return [os.path.splitext(x)[0] for x in os.listdir(r".\main\models")]
+    return [os.path.splitext(x)[0] for x in os.listdir(r"./main/models")]
 
 
 
