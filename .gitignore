@@ -1,0 +1,8 @@
+*/__pycache__
+.idea
+*.log
+*.png
+instance/config.py
+instance/testconfig.py
+*.pkl
+*.csv
